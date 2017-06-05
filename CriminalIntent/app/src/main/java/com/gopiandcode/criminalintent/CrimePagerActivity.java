@@ -83,7 +83,7 @@ public class CrimePagerActivity extends AppCompatActivity {
                 break;
             }
         }
-        
+
         mFirstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
