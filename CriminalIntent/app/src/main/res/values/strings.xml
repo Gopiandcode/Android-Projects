@@ -6,4 +6,18 @@
     <string name="crime_solved_label">Solved</string>
     <string name="report_crime_button">Report to Police</string>
     <string name="date_picker_title">Date of Crime</string>
+    <string name="okay_button">Okay</string>
+    <string name="new_crime">New Crime</string>
+    <string name="show_subtitle">Show Subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <plurals name="subtitle_format_plural">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="many">%1$d crimes</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
+    <string name="subtitle_format">%1$d crimes</string>
+    <string name="delete_crime">Delete</string>
+    <string name="empty_crime_list_text">No Crimes Recorded</string>
+    <string name="no_crimes_string">No crimes recorded.</string>
+    <string name="crime_serious">Requires Police Intervention</string>
 </resources>

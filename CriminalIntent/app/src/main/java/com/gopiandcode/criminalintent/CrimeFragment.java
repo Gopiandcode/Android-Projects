@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,6 +38,7 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+    private CheckBox mIsSeriousCheckBox;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -76,9 +79,13 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
+                /*Intent i = DatePickerFragment.newIntent(getActivity(), mCrime.getDate());
+                startActivityForResult(i, REQUEST_DATE);
+                *////*
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
+                //*/
             }
         });
 
@@ -88,6 +95,15 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mCrime.setSolved(isChecked);
+            }
+        });
+
+        mIsSeriousCheckBox = (CheckBox) v.findViewById(R.id.serious_crime);
+        mIsSeriousCheckBox.setChecked(mCrime.isRequiresPolice());
+        mIsSeriousCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCrime.setRequiresPolice(isChecked);
             }
         });
 
@@ -120,5 +136,18 @@ public class CrimeFragment extends Fragment {
 
     private void updateDate() {
         mDateButton.setText(DateFormat.format("EEEEEEEE, MMM dd, yyyy", mCrime.getDate()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CrimeLab.get(getActivity())
+                .updateCrime(mCrime);
     }
 }

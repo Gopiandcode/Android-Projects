@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -98,4 +101,28 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.fragment_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.delete_crime:
+                int position_to_delete = mViewPager.getCurrentItem();
+                Crime rem_crime = mCrimes.get(position_to_delete);
+                CrimeLab.get(this).deleteCrime(rem_crime.getID());
+                mCrimes = CrimeLab.get(this).getCrimes();
+                finish();
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        }
 }

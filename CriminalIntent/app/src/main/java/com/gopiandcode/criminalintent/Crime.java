@@ -48,6 +48,11 @@ public class Crime {
         mDate = new Date();
     }
 
+    public Crime(UUID id) {
+        mID = id;
+        mDate = new Date();
+    }
+
     public boolean isRequiresPolice() {
         return mRequiresPolice;
     }
